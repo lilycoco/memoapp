@@ -1,16 +1,22 @@
-<template>
-  <div
-    class="VueToNuxtmemo"
-    :style="{
-      top: `${toppo}px`,
-      left: `${left}px`
-    }">
+<template >
+  <div class= "dragArea">
     <div
-      class="Remove-btn"
-      @click="$emit('remove')" >
-      <span class="minus">x</span>
+      class="VueToNuxtmemo"
+      :style="{
+        top: `${toppo}px`,
+        left: `${left}px`
+      }"
+      @mousemove="$emit('onMousemove')"
+      @mousedown="onMousemove"
+      @mouseup="onMouseup"
+      >
+      <div
+        class="Remove-btn"
+        @click="$emit('remove')" >
+        <span class="minus">x</span>
+      </div>
+        <textarea class="Memo Text"></textarea>
     </div>
-      <textarea class="Memo Text"></textarea>
   </div>
 </template>
 
@@ -24,6 +30,28 @@ export default {
     left: {
       type: Number,
       default: 0
+    },
+    index: {
+      type: Number,
+      default: 0
+    }
+  },
+  data() {
+    return {
+      isDragging: false,
+      prevX: 0,
+      prevY: 0
+    }
+  },
+  methods: {
+    onMousedown(e) {
+      console.log(e)
+    },
+    onMouseup(e) {
+      console.log(e)
+    },
+    onMousemove(e) {
+      console.log(e)
     }
   }
 }

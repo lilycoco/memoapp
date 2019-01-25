@@ -1,11 +1,12 @@
 <template>
-  <section class="container">
+  <section class="container"
+  @mousemove="onMousemove">
       <memo
         v-for="(position, index) in memoPositions"
-        :key="position.left"
+        :key="index"
         :toppo="position.toppo"
         :left="position.left"
-        @remove="removeMemo(index)"/>
+        @remove="removeMemo"/>
       <add @plus="plusMemo"/>
   </section>
 </template>
@@ -47,8 +48,16 @@ export default {
       ]
     },
     removeMemo(index) {
-       this.memoPositions =[...this.memoPositions];
+       this.memoPositions = [...this.memoPositions];
        this.memoPositions.splice(index,1);
+    },
+    onMousemove(index) {
+      this.memoPositions = [...this.memoPositions];
+      this.memoPositions={
+        toppo: e.screenX,
+        left: e.screenY
+      }
+
     }
   }
 }

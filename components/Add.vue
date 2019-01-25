@@ -15,9 +15,7 @@
   background-color:white;
   border-radius: 100px;
   border:black;
-  /* padding:0; */
   position:fixed;
-
 }
 
 .plus {
