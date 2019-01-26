@@ -1,26 +1,19 @@
-<template >
-  <div class= "dragArea">
-    <div
-      class="VueToNuxtmemo"
-      :style="{
-        top: `${toppo}px`,
-        left: `${left}px`
-      }"
-      @mousemove="$emit('onMousemove')"
-      @mousedown="onMousemove"
-      @mouseup="onMouseup"
-      >
-      <div
-        class="Remove-btn"
-        @click="$emit('remove')" >
-        <span class="minus">x</span>
-      </div>
-        <textarea class="Memo Text"></textarea>
+<template>
+<div
+  class="memo"
+  :style="{
+    top: `${toppo}px`,
+    left: `${left}px`
+  }">
+  <div
+    class="handle"
+    @mousedown="onMousedown"/>
+  <editor :index="index"/>
     </div>
-  </div>
 </template>
 
 <script>
+import Editor from '~/components/Editor'
 export default {
   props: {
     toppo: {
@@ -36,66 +29,35 @@ export default {
       default: 0
     }
   },
-  data() {
-    return {
-      isDragging: false,
-      prevX: 0,
-      prevY: 0
-    }
+  components: {
+    Editor
   },
   methods: {
     onMousedown(e) {
-      console.log(e)
-    },
-    onMouseup(e) {
-      console.log(e)
-    },
-    onMousemove(e) {
-      console.log(e)
+      this.$emit('dragStart', {
+        x: e.pageX,
+        y: e.pageY
+      })
     }
   }
 }
 </script>
 
 <style>
-.VueToNuxtmemo {
+.memo {
   position: fixed;
-  overflow: hidden;
-  height: 300px ;
-  width: 200px ;
-  background-color:#bb0808;
+  background: #f00;
+  width: 200px;
+  height: 300px;
 }
 
-.Remove-btn {
-  /* bottom:20px; */
-  /* right:20px; */
-  height: 20px;
-  width: 20px;
-  background-color:white;
-  border-radius: 100px;
-  border:black;
-  /* padding:0; */
-  position:fixed;
-}
-
-.minus {
-  height: 30px;
-  width: 30px;
-  color:black;
-  font-weight: bold;
-}
-.Memo {
-  position: absolute;
+.handle{
+  position:absolute;
   top: 0;
   left: 0;
+  right: 0;
+  height: 50px;
+  background: #900;
+  cursor: move;
 }
-
-.Text {
-  top: 30px;
-  height: 300px ;
-  width: 200px ;
-  background-color:#af2929;
-  border-color:#af2929;
-}
-
 </style>
