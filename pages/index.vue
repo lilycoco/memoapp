@@ -9,8 +9,9 @@
       :toppo = "mm.toppo"
       :left = "mm.left"
       :index = "index"
-      @dragStart = "onDragStart($event, index)"
-      @minus = "minusMemo"/>
+      :value="$store.getters.memoData(index).text"
+      @dragStart ="onDragStart($event, index)"
+      @minus ="minusMemo(index)"/>
     <plus-btn @plus = "plusMemo"/>
   </section>
 </template>
@@ -41,8 +42,7 @@ export default {
       })
     },
     minusMemo(index) {
-      this.memoPositions = [...this.memoPositions]
-      this.memoPositions.splice(index, 1)
+      this.$store.commit('reduceMemo', index)
     },
     onDragStart({ x, y }, index) {
       this.draggingIndex = index
@@ -51,16 +51,13 @@ export default {
     },
     onMousemove(e) {
       if (this.draggingIndex === null) return
-
       const x = e.pageX
       const y = e.pageY
       const target = { ...this.memoPositions[this.draggingIndex] }
       target.left += x - this.prevX
       target.toppo += y - this.prevY
-
       this.memoPositions = [...this.memoPositions]
       this.memoPositions[this.draggingIndex] = target
-
       this.prevX = x
       this.prevY = y
     },
