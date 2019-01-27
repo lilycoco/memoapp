@@ -14,10 +14,10 @@ export default {
     }
   },
   methods: {
-    onInput(e){
+    onInput(e) {
       this.$store.commit('updateText', {
         index: this.index,
-        text: this.target.value
+        text: e.target.value
       })
     }
   }

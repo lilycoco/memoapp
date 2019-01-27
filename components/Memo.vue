@@ -1,14 +1,14 @@
 <template>
 <div
-  class="memo"
-  :style="{
+  class = "memo"
+  :style ="{
     top: `${toppo}px`,
     left: `${left}px`
   }">
   <div
-    class="handle"
-    @mousedown="onMousedown"/>
-  <editor :index="index"/>
+    class = "handle"
+    @mousedown = "onMousedown"/>
+  <editor :index = "index"/>
     </div>
 </template>
 

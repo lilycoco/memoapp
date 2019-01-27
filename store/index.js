@@ -12,7 +12,7 @@ export const getters = {
 }
 
 export const plugins = [
-  (store) =>{
+  (store) => {
     store.subscribe(() => {
       localStorage.setItem(STORAGE_NAME, JSON.stringify(store.state))
     })
@@ -26,7 +26,7 @@ export const mutations = {
       memo
     ]
   },
-  updateText(state,{ index, text}) {
+  updateText(state, { index, text }) {
     state.memoList = [...state.memoList]
     state.memoList[index] = {
       ...state.memoList[index],
@@ -34,4 +34,3 @@ export const mutations = {
     }
   }
 }
-

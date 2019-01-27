@@ -8,7 +8,6 @@
 
 <script>
 export default {
-
 }
 </script>
 
@@ -35,5 +34,7 @@ export default {
   font-size: 50px;
   display: inline-block;
   margin-top: -10px;
+  font-weight: bold;
+  color: #666;
 }
 </style>
