@@ -47,7 +47,6 @@ export default {
         index: this.index,
         background: e.target.style.background
       })
-      console.log(e)
     }
   }
 }
@@ -67,27 +66,6 @@ export default {
 .color {
   display:inline-flex;
   cursor: pointer;
-
-}
-.color1 {
   width: 40px;
-  background: rgb(245, 140, 140);
 }
-.color2 {
-  width: 40px;
-  background: rgb(245, 179, 118);
-}
-.color3 {
-  width: 40px;
-  background: rgb(252, 239, 129);
-}
-.color4 {
-  width: 40px;
-  background: rgb(180, 252, 138);
-}
-.color5 {
-  width: 40px;
-  background: rgb(152, 248, 252);
-}
-
 </style>

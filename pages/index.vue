@@ -9,6 +9,7 @@
       :toppo = "mm.toppo"
       :left = "mm.left"
       :background = "mm.background"
+      :zIndex = "mm.zIndex"
       :index = "index"
       :value="$store.getters.memoData(index).text"
       @dragStart ="onDragStart($event, index)"
@@ -40,6 +41,7 @@ export default {
       this.$store.commit('reduceMemo', index)
     },
     onDragStart({ x, y }, index) {
+      this.$store.commit('forward', index)
       this.draggingIndex = index
       this.prevX = x
       this.prevY = y

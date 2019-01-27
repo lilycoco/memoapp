@@ -27,7 +27,8 @@ export const mutations = {
       {
         toppo: Math.floor(state.memoList.length / widthCount) * 350,
         left: (state.memoList.length % widthCount) * 250,
-        text: ''
+        text: '',
+        zIndex: 1
       }
     ]
   },
@@ -41,6 +42,11 @@ export const mutations = {
       ...state.memoList[index],
       text
     }
+  },
+  forward(state, index) {
+    state.memoList = [...state.memoList]
+    const a = Math.max.apply(null, state.memoList.map(p => p.zIndex))
+    state.memoList[index].zIndex = a + 1
   },
   changeColor(state, { index, background }) {
     state.memoList = [...state.memoList]

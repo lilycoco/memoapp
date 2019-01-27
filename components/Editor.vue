@@ -27,7 +27,7 @@ export default {
 <style>
 .editor {
   position: absolute;
-  top: 50px;
+  top: 40px;
   left: 0;
   width: 200px;
   bottom: 0;

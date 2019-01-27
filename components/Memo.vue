@@ -4,8 +4,10 @@
     :style ="{
       top: `${toppo}px`,
       left: `${left}px`,
-      background: `${background}`
-    }">
+      background: `${background}`,
+      zIndex: `${zIndex}`
+    }"
+    @click="putForward(index)">
     <div
       class = "handle"
       @mousedown = "onMousedown">
@@ -40,6 +42,10 @@ export default {
     background: {
       type: String,
       default: 'rgb(248, 236, 236)'
+    },
+    zIndex: {
+      type: Number,
+      default: 1
     }
   },
   components: {
@@ -52,6 +58,9 @@ export default {
         x: e.pageX,
         y: e.pageY
       })
+    },
+    putForward(index) {
+      this.$store.commit('forward', index)
     }
   }
 }
@@ -70,14 +79,14 @@ export default {
   top: 0;
   left: 0;
   right: 0;
-  height: 50px;
+  height: 40px;
   background: #900;
   cursor: move;
 }
 
 .minus-btn {
   position: fixed;
-  margin: 8px 0px 0px 8px;
+  margin: 5px 0px 0px 5px;
   border-radius: 50%;
   background: #fff;
   border: #666 2px solid;
