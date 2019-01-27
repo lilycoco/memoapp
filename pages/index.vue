@@ -8,6 +8,7 @@
       :key = "index"
       :toppo = "mm.toppo"
       :left = "mm.left"
+      :background = "mm.background"
       :index = "index"
       :value="$store.getters.memoData(index).text"
       @dragStart ="onDragStart($event, index)"
@@ -72,7 +73,7 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: url('../assets/back.jpg');
+  background: url('../assets/back2.jpg');
   user-select: none;
 }
 

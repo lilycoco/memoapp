@@ -42,6 +42,10 @@ export const mutations = {
       text
     }
   },
+  changeColor(state, { index, background }) {
+    state.memoList = [...state.memoList]
+    state.memoList[index].background = background
+  },
   mouseMove(state, { draggingIndex, target }) {
     state.memoList = [...state.memoList]
     state.memoList[draggingIndex] = target

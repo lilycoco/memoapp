@@ -1,25 +1,28 @@
 <template>
-<div
-  class = "memo"
-  :style ="{
-    top: `${toppo}px`,
-    left: `${left}px`
-  }">
   <div
-    class = "handle"
-    @mousedown = "onMousedown">
+    class = "memo"
+    :style ="{
+      top: `${toppo}px`,
+      left: `${left}px`,
+      background: `${background}`
+    }">
     <div
-      class="minus-btn"
-      @click="$emit('minus')">
-      <span>×</span>
+      class = "handle"
+      @mousedown = "onMousedown">
+      <div
+        class="minus-btn"
+        @click="$emit('minus')">
+        <span>×</span>
+      </div>
     </div>
+    <editor :index = "index"/>
+    <Color :index = "index"/>
   </div>
-  <editor :index = "index"/>
-    </div>
 </template>
 
 <script>
 import Editor from '~/components/Editor'
+import Color from '~/components/Color'
 export default {
   props: {
     toppo: {
@@ -33,10 +36,15 @@ export default {
     index: {
       type: Number,
       default: 0
+    },
+    background: {
+      type: String,
+      default: 'rgb(248, 236, 236)'
     }
   },
   components: {
-    Editor
+    Editor,
+    Color
   },
   methods: {
     onMousedown(e) {
@@ -52,7 +60,7 @@ export default {
 <style>
 .memo {
   position: fixed;
-  background: #f00;
+  background: rgb(248, 236, 236);
   width: 200px;
   height: 300px;
 }
@@ -79,9 +87,11 @@ export default {
   cursor: pointer;
   transition: 0.2s;
 }
+
 .minus-btn:hover {
   transform: scale(1.1);
 }
+
 .minus-btn > span {
   font-size: 20px;
   display: inline-block;

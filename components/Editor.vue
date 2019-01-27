@@ -33,7 +33,7 @@ export default {
   bottom: 0;
   border: none;
   background: transparent;
-  color: #fff;
+  color: rgb(90, 90, 90);
   padding: 15px;
   font-size: 20px;
 }
