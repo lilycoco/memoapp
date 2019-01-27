@@ -15,7 +15,6 @@
     <plus-btn @plus = "plusMemo"/>
   </section>
 </template>
-
 <script>
 import Memo from '~/components/Memo.vue'
 import PlusBtn from '~/components/PlusBtn.vue'
@@ -34,12 +33,7 @@ export default {
   },
   methods: {
     plusMemo() {
-      const widthCount = Math.floor(window.innerWidth / 250)
-      this.$store.commit('addMemo', {
-        toppo: Math.floor(this.$store.state.memoList.length / widthCount) * 350,
-        left: (this.$store.state.memoList.length % widthCount) * 250,
-        text: ''
-      })
+      this.$store.commit('addMemo')
     },
     minusMemo(index) {
       this.$store.commit('reduceMemo', index)
@@ -53,11 +47,13 @@ export default {
       if (this.draggingIndex === null) return
       const x = e.pageX
       const y = e.pageY
-      const target = { ...this.memoPositions[this.draggingIndex] }
+      const target = { ...this.$store.state.memoList[this.draggingIndex] }
       target.left += x - this.prevX
       target.toppo += y - this.prevY
-      this.memoPositions = [...this.memoPositions]
-      this.memoPositions[this.draggingIndex] = target
+      this.$store.commit('mouseMove', {
+        draggingIndex: this.draggingIndex,
+        target
+      })
       this.prevX = x
       this.prevY = y
     },

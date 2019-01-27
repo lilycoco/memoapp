@@ -20,10 +20,15 @@ export const plugins = [
 ]
 
 export const mutations = {
-  addMemo(state, memo) {
+  addMemo(state) {
+    const widthCount = Math.floor(window.innerWidth / 250)
     state.memoList = [
       ...state.memoList,
-      memo
+      {
+        toppo: Math.floor(state.memoList.length / widthCount) * 350,
+        left: (state.memoList.length % widthCount) * 250,
+        text: ''
+      }
     ]
   },
   reduceMemo(state, index) {
@@ -36,5 +41,9 @@ export const mutations = {
       ...state.memoList[index],
       text
     }
+  },
+  mouseMove(state, { draggingIndex, target }) {
+    state.memoList = [...state.memoList]
+    state.memoList[draggingIndex] = target
   }
 }
