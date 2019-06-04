@@ -1,19 +1,20 @@
 <template>
   <section
-    class = "container"
-    @mousemove = "onMousemove"
-    @mouseup = "onMouseup">
+    class="container"
+    @mousemove="onMousemove"
+    @mouseup="onMouseup">
     <memo
-      v-for = "(mm, index) in $store.state.memoList"
-      :key = "index"
-      :toppo = "mm.toppo"
-      :left = "mm.left"
-      :background = "mm.background"
-      :zIndex = "mm.zIndex"
-      :index = "index"
+      v-for="(mm, index) in $store.state.memoList"
+      :key="index"
+      :toppo="mm.toppo"
+      :left="mm.left"
+      :background="mm.background"
+      :zIndex="mm.zIndex"
+      :index="index"
+      :text="mm.text"
       :value="$store.getters.memoData(index).text"
-      @dragStart ="onDragStart($event, index)"
-      @minus ="minusMemo(index)"/>
+      @dragStart="onDragStart($event, index)"
+      @minus="minusMemo(index)"/>
     <plus-btn @plus = "plusMemo"/>
   </section>
 </template>
@@ -26,6 +27,9 @@ export default {
     Memo,
     PlusBtn
   },
+  fetch({ store }) {
+    return store.dispatch('getMemoList')
+  },
   data() {
     return {
       draggingIndex: null,
@@ -33,9 +37,26 @@ export default {
       prevY: null
     }
   },
+  mounted() {
+    this.cancelerId = setInterval(() => {
+      this.$store.dispatch('getMemoList')
+    }, 100)
+  },
+  destroyerd() {
+    clearInterval(this.cancelerId)
+  },
   methods: {
-    plusMemo() {
-      this.$store.commit('addMemo')
+    async plusMemo() {
+      const widthCount = Math.floor(window.innerWidth / 250)
+      await this.$store.dispatch('postMemoList', [
+        ...this.$store.state.memoList,
+        {
+          toppo: Math.floor(this.$store.state.memoList.length / widthCount) * 350,
+          left: (this.$store.state.memoList.length % widthCount) * 250,
+          text: '',
+          zIndex: 1
+        }
+      ])
     },
     minusMemo(index) {
       this.$store.commit('reduceMemo', index)

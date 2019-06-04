@@ -1,37 +1,32 @@
-const STORAGE_NAME = 'vuex_data'
-const strageData = localStorage.getItem(STORAGE_NAME)
+// const STORAGE_NAME = 'vuex_data'
+// const strageData = localStorage.getItem(STORAGE_NAME)
 
-export const state = () => strageData ? JSON.parse(strageData) : {
+// export const state = () => strageData ? JSON.parse(strageData) : {
+//   memoList: []
+// }
+export const state = () => ({
   memoList: []
-}
+})
 
 export const getters = {
   memoData(state) {
     return index => state.memoList[index]
   }
 }
-
-export const plugins = [
-  (store) => {
-    store.subscribe(() => {
-      localStorage.setItem(STORAGE_NAME, JSON.stringify(store.state))
-    })
-  }
-]
-
+// export const plugins = [
+//   (store) => {
+//     store.subscribe(() => {
+//       localStorage.setItem(STORAGE_NAME, JSON.stringify(store.state))
+//     })
+//   }
+// ]
 export const mutations = {
-  addMemo(state) {
-    const widthCount = Math.floor(window.innerWidth / 250)
-    state.memoList = [
-      ...state.memoList,
-      {
-        toppo: Math.floor(state.memoList.length / widthCount) * 350,
-        left: (state.memoList.length % widthCount) * 250,
-        text: '',
-        zIndex: 1
-      }
-    ]
-  },
+  // addMemo(state, memo) {
+  //   state.memoList = [
+  //     ...state.memoList,
+  //     memo
+  //   ]
+  // },
   reduceMemo(state, index) {
     state.memoList = [...state.memoList]
     state.memoList.splice(index, 1)
@@ -55,5 +50,19 @@ export const mutations = {
   mouseMove(state, { draggingIndex, target }) {
     state.memoList = [...state.memoList]
     state.memoList[draggingIndex] = target
+  },
+  setMemoList(state, memoList) {
+    state.memoList = memoList
+  }
+}
+
+export const actions = {
+  async getMemoList(store) {
+    const memoList = await this.$axios.$get('/data')
+    store.commit('setMemoList', memoList)
+  },
+  async postMemoList(store, memoList) {
+    await this.$axios.$post('/data', memoList)
+    store.commit('setMemoList', memoList)
   }
 }

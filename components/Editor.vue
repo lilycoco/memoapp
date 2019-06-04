@@ -11,6 +11,10 @@ export default {
     index: {
       type: Number,
       default: 0
+    },
+    text: {
+      type: String,
+      default: ''
     }
   },
   methods: {
